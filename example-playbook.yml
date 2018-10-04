@@ -5,6 +5,9 @@
 # eg.
 # [aws]
 # my.aws.ip ansible_user=ec2-user
+#
+# Also ensure you've downloaded the plugin SDK, renamed to plugin-sdk.zip and placed into the role files/ directory
+#
 # Author: Adam Gardner
 
 - name: Create Plugin Development VM for Dynatrace Development

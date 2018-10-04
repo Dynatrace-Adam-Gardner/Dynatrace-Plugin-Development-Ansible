@@ -1,0 +1,77 @@
+---
+# tasks file for dynatrace-plugin-development
+
+- name: Download OneAgent
+  get_url:
+    url: https://{{environment_id}}.live.dynatrace.com/api/v1/deployment/installer/agent/unix/default/latest?Api-Token={{api_token}}&arch=x86&flavor=default
+    dest: /tmp/Dynatrace-OneAgent.sh
+    mode: +x
+
+- name: Install OneAgent
+  shell: "/tmp/Dynatrace-OneAgent.sh APP_LOG_CONTENT_ACCESS=1"
+  args:
+    creates: /opt/dynatrace
+  become: true
+
+- name: Create Plugin Directory
+  file:
+    path: "{{plugin_install_directory}}"
+    state: directory
+
+- name: Install Unzip Package
+  package:
+    name: unzip
+    state: present
+
+- name: Unzip Plugin SDK
+  unarchive:
+    src: plugin-sdk.zip
+    dest: "{{plugin_install_directory}}"
+    creates: "{{plugin_install_directory}}/plugin-sdk.whl"
+
+- name: Install Default Python3
+  package:
+    name: python3
+    state: present
+  become: true
+  ignore_errors: yes
+
+- name: Install Python 3.5
+  package:
+    name: python35
+    state: present
+  become: true
+  ignore_errors: yes
+
+- name: Install PIP for Python 3
+  package:
+    name: python3-pip
+    state: present
+  become: true
+  ignore_errors: true
+
+- name: Install PIP for Python 3.5
+  package:
+    name: python35-pip
+    state: present
+  become: true
+  ignore_errors: true
+
+- name: Find Wheel File Name
+  shell: ls plugin_sdk*.whl
+  args:
+    chdir: "{{plugin_install_directory}}"
+    creates: plugin-sdk.whl
+  register: wheel_name
+
+#- name: Make Wheel Executable
+#  file:
+#    path: "{{plugin_install_directory}}/plugin-sdk.whl"
+#    mode: "+x"
+
+- name: Install SDK Wheel
+  become: true
+  command: "pip3 install {{wheel_name.stdout}}"
+  args:
+    chdir: "{{plugin_install_directory}}"
+    creates: "{{python_install_directory}}"

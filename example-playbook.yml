@@ -1,0 +1,14 @@
+---
+# Playbook to create a Dynatrace plugin development box
+# Ensure your /etc/ansible/hosts file contains an [aws] section
+# with your remote user set to ec2-user
+# eg.
+# [aws]
+# my.aws.ip ansible_user=ec2-user
+# Author: Adam Gardner
+
+- name: Create Plugin Development VM for Dynatrace Development
+  hosts: aws
+  
+  roles:
+    - dynatrace-plugin-development

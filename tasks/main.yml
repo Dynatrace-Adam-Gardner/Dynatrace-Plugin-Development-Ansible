@@ -25,6 +25,7 @@
     state: present
 
 - name: Unzip Plugin SDK
+  become: true
   unarchive:
     src: "https://{{environment_id}}.live.dynatrace.com/{{plugin_installer_path}}"
     dest: "{{plugin_install_directory}}/plugin-sdk.zip"

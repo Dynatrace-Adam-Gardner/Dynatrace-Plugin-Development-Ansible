@@ -26,8 +26,8 @@
 
 - name: Unzip Plugin SDK
   unarchive:
-    src: plugin-sdk.zip
-    dest: "{{plugin_install_directory}}"
+    src: "https://{{environment_id}}.live.dynatrace.com/{{plugin_installer_path}}"
+    dest: "{{plugin_install_directory}}/plugin-sdk.zip"
     creates: "{{plugin_install_directory}}/plugin-sdk.whl"
 
 - name: Install Default Python3

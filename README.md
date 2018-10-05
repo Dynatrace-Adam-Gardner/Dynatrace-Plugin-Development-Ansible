@@ -19,6 +19,7 @@ Change these in vars/main.yml:
 - api_token
 
 Where environment_id is your SaaS URL portion: https://abc123.live.dynatrace.com
+
 Where api_token is found in the installer link at: https://abc123.live.dynatrace.com/#install/agentlinux
 
 No Change Needed:

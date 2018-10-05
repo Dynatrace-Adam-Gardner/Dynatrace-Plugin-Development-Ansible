@@ -33,7 +33,7 @@ Example Playbook
       hosts: aws
 
       roles:
-        - dynatrace-plugin-development
+        - dynatrace_adam_gardner.dynatrace-plugin-development-ansible
 
 License
 -------

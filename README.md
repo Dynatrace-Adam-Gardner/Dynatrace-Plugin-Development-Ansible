@@ -14,16 +14,16 @@ Requirements
 
 Role Variables
 --------------
-Change These in vars/main.yml:
-- environment_id set to abc123
-- api_token set to abcD123eFGh****
+Change these in vars/main.yml:
+- environment_id
+- api_token
 
 Where environment_id is your SaaS URL portion: https://abc123.live.dynatrace.com
 Where api_token is found in the installer link at: https://abc123.live.dynatrace.com/#install/agentlinux
 
 No Change Needed:
-- plugin_install_directory set to /tmp/plugin
-- python_install_directory set to /usr/local/lib/python3.5
+- plugin_install_directory
+- python_install_directory
 
 Example Playbook
 ----------------

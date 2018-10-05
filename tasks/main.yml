@@ -28,8 +28,9 @@
   become: true
   unarchive:
     src: "https://{{environment_id}}.live.dynatrace.com/{{plugin_installer_path}}"
-    dest: "{{plugin_install_directory}}/plugin-sdk.zip"
+    dest: "{{plugin_install_directory}}"
     creates: "{{plugin_install_directory}}/plugin-sdk.whl"
+    remote_src: true
 
 - name: Install Default Python3
   package:
@@ -65,11 +66,6 @@
     chdir: "{{plugin_install_directory}}"
     creates: plugin-sdk.whl
   register: wheel_name
-
-#- name: Make Wheel Executable
-#  file:
-#    path: "{{plugin_install_directory}}/plugin-sdk.whl"
-#    mode: "+x"
 
 - name: Install SDK Wheel
   become: true

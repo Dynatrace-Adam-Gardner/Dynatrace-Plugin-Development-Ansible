@@ -4,3 +4,4 @@ plugin_install_directory: /tmp/plugin
 python_install_directory: /usr/local/lib/python3.5
 environment_id: abc123
 api_token: abcD123FGh******
+plugin_installer_path: installer/plugin_sdk/Unknown/***/***

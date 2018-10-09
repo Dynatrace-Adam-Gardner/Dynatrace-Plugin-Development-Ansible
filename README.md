@@ -1,6 +1,8 @@
 dynatrace-plugin-development
 =========
 
+# This is a work in progress and should not be used yet!!
+
 Ansible role to install a Dynatrace plugin environment on Linux.
 
 Role currently only works with Dynatrace SaaS Environments.

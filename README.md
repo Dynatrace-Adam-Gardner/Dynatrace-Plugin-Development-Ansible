@@ -23,7 +23,7 @@ Change these in vars/main.yml:
 
 `environment_id` is your SaaS URL portion: https://abc123.live.dynatrace.com
 
-`api_token` is your `InstallerDownload` token from Settings > Platform as a Service.
+`api_token` is your `InstallerDownload` token from Settings > Integration > Platform as a Service.
 
 `plugin_installer_path` is found like this:
 - Visit https://***.live.dynatrace.com/#settings/monitoredtechnologies/addextension/addlocal
@@ -37,6 +37,11 @@ Example Playbook
     ---
     - name: Install Plugin SDK for Dynatrace
       hosts: aws
+      
+      vars:
+        environment_id: ***
+        api_token: ***
+        plugin_installer_path: installer/plugin_sdk/Unknown/1.***.***.***/***
 
       roles:
         - dynatrace_adam_gardner.dynatrace_plugin_development_ansible

@@ -3,7 +3,7 @@
 
 # You MUST modify these parameters
 environment_id: abc123
-api_token: ***
+api_token: abc123
 plugin_installer_path: installer/plugin_sdk/Unknown/1.***.***.****/***
 
 # You don't have to modify these (unless you want to)

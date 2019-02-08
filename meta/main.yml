@@ -1,6 +1,6 @@
 galaxy_info:
   author: Adam Gardner
-  description: adam@agardner.net
+  description: Create a Dynatrace plugin development box - adam@agardner.net
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

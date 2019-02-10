@@ -32,16 +32,16 @@
     creates: "{{plugin_install_directory}}/plugin-sdk.whl"
     remote_src: true
 
-- name: Install Python 3.5
+- name: Install Python 3.6
   package:
-    name: python35
+    name: python36
     state: present
   become: true
   ignore_errors: yes
 
-- name: Install PIP for Python 3.5
+- name: Install PIP for Python 3.6
   package:
-    name: python35-pip
+    name: python36-pip
     state: present
   become: true
   ignore_errors: true
@@ -53,8 +53,8 @@
     creates: plugin-sdk.whl
   register: wheel_name
 
-- name: Install SDK Wheel on pip35
+- name: Install SDK Wheel on pip36
   become: true
-  command: "pip-3.5 install {{wheel_name.stdout}}"
+  command: "pip-3.6 install {{wheel_name.stdout}}"
   args:
     chdir: "{{plugin_install_directory}}"

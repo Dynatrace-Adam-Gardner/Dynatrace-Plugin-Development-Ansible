@@ -1,0 +1,36 @@
+{
+	"name": "custom.python.demo_plugin",
+	"version": "0.01",
+	"type": "python",
+	"entity": "PROCESS_GROUP_INSTANCE",
+	"processTypeNames": ["APACHE_HTTPD"],
+	"source": {
+		"package": "demo_plugin",
+		"className": "DemoPlugin",
+		"install_requires": ["requests>=2.6.0"],
+		"activation": "Singleton"
+	},
+	"metrics": [{
+		"timeseries": {
+			"key": "randomNumber",
+			"unit": "Count",
+			"displayname": "Random Value"
+		}
+	}],
+	"configUI": {
+		"displayName": "OneAgent Demo Plugin AG"
+	},
+	"ui": {
+		"keymetrics": [{
+			"key": "randomNumber",
+			"displayname": "Random Number"
+		}],
+		"keycharts": [{
+			"group": "Custom Metrics",
+			"title": "Random Number Chart",
+			"series": [{
+				"key": "randomNumber"
+			}]
+		}]
+	}
+}

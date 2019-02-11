@@ -16,10 +16,11 @@ Requirements
 
 Role Variables
 --------------
-Change these in vars/main.yml:
+Change or override these in defaults/main.yml:
 - `environment_id`
 - `api_token`
 - `plugin_installer_path`
+- `plugin_token`
 
 `environment_id` is your SaaS URL portion: https://abc123.live.dynatrace.com
 
@@ -29,6 +30,14 @@ Change these in vars/main.yml:
 - Visit https://***.live.dynatrace.com/#settings/monitoredtechnologies/addextension/addlocal
 - Open chrome dev tools and look for the `ruxitSdkDownloadPath` endpoint
 - Copy the `sdkDownloadPath` value eg. `installer/plugin_sdk/Unknown/1.153.218.20180918-135116/***`
+
+`install_demo_data` does the following:
+- Installs Apache and PHP
+- Creates an index.php page which shows a JSON document and a random number
+- Drops the plugin files which pulls the random number once per minute and charts the results in Dynatrace
+- Builds and uploads the plugin files to the tenant
+
+`plugin_token` is the specialised plugin development token found at `https://***.live.dynatrace.com/#settings/monitoredtechnologies/customextensions`
 
 
 Example Playbook
@@ -42,6 +51,8 @@ Example Playbook
         environment_id: ***
         api_token: ***
         plugin_installer_path: installer/plugin_sdk/Unknown/1.***.***.***/***
+		install_demo_data: true
+		plugin_token: ***
 
       roles:
         - dynatrace_adam_gardner.dynatrace_plugin_development_ansible

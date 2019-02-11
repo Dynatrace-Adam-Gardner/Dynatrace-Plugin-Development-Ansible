@@ -37,14 +37,12 @@
     name: python36
     state: present
   become: true
-  ignore_errors: yes
 
 - name: Install PIP for Python 3.6
   package:
     name: python36-pip
     state: present
   become: true
-  ignore_errors: true
 
 - name: Find Wheel File Name
   shell: ls plugin_sdk*.whl
@@ -58,3 +56,76 @@
   command: "pip-3.6 install {{wheel_name.stdout}}"
   args:
     chdir: "{{plugin_install_directory}}"
+
+#######################
+# Install demo data
+#######################
+
+- name: Install HTTPD 2.4
+  become: true
+  package:
+    name: httpd24
+    state: present
+  when: install_demo_data is defined and install_demo_data == true
+
+- name: Install PHP 7.2
+  become: true
+  package:
+    name: php72
+    state: present
+  when: install_demo_data is defined and install_demo_data == true
+  
+- name: Copy index.php
+  become: true
+  copy:
+    src: index.php
+    dest: /var/www/html/index.php
+  when: install_demo_data is defined and install_demo_data == true
+
+- name: Copy demo_plugin.py to /tmp
+  become: true
+  copy:
+    src: demo_plugin.py
+    dest: /tmp
+  when: install_demo_data is defined and install_demo_data == true
+
+- name: Copy plugin.json to /tmp
+  become: true
+  copy:
+    src: plugin.json
+    dest: /tmp
+  when: install_demo_data is defined and install_demo_data == true
+  
+- name: Change owner plugin directory
+  become: true
+  file:
+    owner: ec2-user
+    path: /opt/dynatrace/oneagent/plugin_development
+  when: install_demo_data is defined and install_demo_data == true
+
+- name: Build Plugin from /tmp
+  command: oneagent_build_plugin
+  ignore_errors: yes
+  args:
+    chdir: /tmp
+  when: install_demo_data is defined and install_demo_data == true
+
+- name: Upload Plugin
+  command: "oneagent_upload_plugin -t {{plugin_token}}"
+  args:
+    chdir: /opt/dynatrace/oneagent/plugin_development/custom.python.demo_plugin
+  when: install_demo_data is defined and install_demo_data == true
+  
+- name: Ensure HTTPD is started
+  become: true
+  service:
+    name: httpd
+    state: started
+  when: install_demo_data is defined and install_demo_data == true
+
+- name: Restart OneAgent
+  become: true
+  service:
+    name: oneagent
+    state: restarted
+  when: install_demo_data is defined and install_demo_data == true
